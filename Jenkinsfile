@@ -1,5 +1,5 @@
 node {
     stage('Deploy Cloudformation Stack') {
-      sh 'python --version'
+      sh 'python3 --version'
     }
 }
