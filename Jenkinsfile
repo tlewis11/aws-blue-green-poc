@@ -12,7 +12,7 @@ node {
     }
 
     stage('Deploy Cloudformation Stack') {
-      sh 'pip3 install -r requirements.txt'
+      sh 'pip3.8 install -r requirements.txt'
       sh 'python3.8 cloudformation_factory.py'
     }
 }
