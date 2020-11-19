@@ -6,7 +6,9 @@ pipeline {
     }
     stages {
       stage('deploy cloudformation stack') {
+        steps {
           println('placeholder: deploying to aws via cfn...')
+        }
       }
     }
 }
