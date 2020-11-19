@@ -12,6 +12,6 @@ node {
     }
 
     stage('Deploy Cloudformation Stack') {
-      sh 'python3 cloudformation_factory.py'
+      sh 'python3.8 cloudformation_factory.py'
     }
 }
