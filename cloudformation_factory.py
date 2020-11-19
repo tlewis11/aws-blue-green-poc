@@ -34,7 +34,7 @@ class CloudformationFactory:
     # TODO: remove the hard-coded capabilities param
     try:
       self.cfn.update_stack(StackName=stack_name, TemplateBody=template, Parameters=parameters,Capabilities=['CAPABILITY_NAMED_IAM'])
-      self.logger.info(f'Beginning stack update {stack_name}')
+      # self.logger.info(f'Beginning stack update {stack_name}')
       if wait:
         waiter = self.cfn.get_waiter('stack_update_complete')
         waiter.wait(
