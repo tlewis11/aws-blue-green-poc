@@ -1,0 +1,37 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Parameters:
+  amiId:
+    Description: Region specific image from the Parameter Store
+    Type: 'String'
+    Default: 'ami-0b59bfac6be064b78'
+Resources:
+  webappLaunchTemplate:
+    Type: AWS::EC2::LaunchTemplate
+    Properties: 
+      LaunchTemplateData: 
+        ImageId: !Ref amiId
+        InstanceType: t3.large
+        KeyName: trane-demo-keypair
+
+        # https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ec2-windows-user-data.html
+        UserData:  
+          'Fn::Base64': !Sub |
+            #!/bin/bash
+            sudo su
+            yum -y install httpd
+            echo "<p> My Instance! </p>" >> /var/www/html/index.html
+            sudo systemctl enable httpd
+            sudo systemctl start httpd
+  webappASG:
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      MinSize: '0'
+      MaxSize: '1'
+      DesiredCapacity: '1'
+      LaunchTemplate:
+        LaunchTemplateId: !Ref webappLaunchTemplate
+        Version: !GetAtt webappLaunchTemplate.LatestVersionNumber
+      VPCZoneIdentifier: 
+        - subnet-3648f85f
+        # - subnet-066d09f586b03a186
+        # - subnet-0df54d38a628d1795

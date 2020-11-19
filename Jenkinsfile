@@ -7,6 +7,10 @@ node {
             )
 
     ])
+    stage('Checkout Github Repo') {
+      checkout scm
+    }
+
     stage('Deploy Cloudformation Stack') {
       sh 'python3 cloudformation_factory.py'
     }
