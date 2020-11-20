@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Parameters:
-  amiid:
+  amiId:
     Description: region specific image from the parameter store
     Type: 'String'
     Default: 'ami-0b59bfac6be064b78'
