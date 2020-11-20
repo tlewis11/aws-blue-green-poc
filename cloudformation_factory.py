@@ -103,7 +103,7 @@ if __name__ == '__main__':
     with open('webapp.yml', 'r') as fp:
       template = fp.read()
 
-    outputs = boto3.client('cloudformation').describe_stacks(StackName='demo-loadbalancer')['Stacks'][0]['Outputs']
+    outputs = boto3.client('cloudformation', region_name='us-east-2').describe_stacks(StackName='demo-loadbalancer')['Stacks'][0]['Outputs']
     target_group = [output['OutputValue'] for output in outputs if output['OutputKey'] == 'AppTargetGroupArn'][0]
     print(target_group)
     params = [
