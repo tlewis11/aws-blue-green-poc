@@ -10,5 +10,5 @@ if __name__ == '__main__':
   r = requests.get(uri)
   code = r.status_code
   expected_code = 200
-  assert code is , f'Expected {expected_code} status code. Instance returned {code}'
+  assert code is expected_code , f'Expected {expected_code} status code. Instance returned {code}'
   assert 'My Instance!' in r.text, 'Web page did not contain the correct contents.'
