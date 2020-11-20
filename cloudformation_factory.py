@@ -89,14 +89,24 @@ if __name__ == '__main__':
 
   cfn_handle = CloudformationFactory(logger=logger)
 
-  stack_name = 'webapp-demo'
-  with open('webapp.yml', 'r') as fp:
-    template = fp.read()
 
-  params = []
-        # {
-        #   'ParameterKey': '',
-        #   'ParameterValue': ,
-        # }
-      # ]
-  cfn_handle.upsert_stack(stack_name, template, params)
+  if True:
+    params = []
+    stack_name = 'demo-loadbalancer'
+    with open('load_balancer.yml', 'r') as fp:
+      template = fp.read()
+
+    cfn_handle.upsert_stack(stack_name, template, params)
+
+  else:
+    stack_name = 'webapp-demo'
+    with open('webapp.yml', 'r') as fp:
+      template = fp.read()
+
+    params = []
+          # {
+          #   'ParameterKey': '',
+          #   'ParameterValue': ,
+          # }
+        # ]
+    cfn_handle.upsert_stack(stack_name, template, params)
