@@ -2,12 +2,12 @@ AWSTemplateFormatVersion: '2010-09-09'
 Parameters:
   amiid:
     Description: region specific image from the parameter store
-    Type: 'string'
+    Type: 'String'
     Default: 'ami-0b59bfac6be064b78'
 
   TargetGroupArn:
     Description: ARN of target group to register ASG 
-    Type: 'string'
+    Type: 'String'
 
 Resources:
   webappLaunchTemplate:
