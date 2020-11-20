@@ -89,8 +89,8 @@ if __name__ == '__main__':
 
   cfn_handle = CloudformationFactory(logger=logger)
 
-
-  if True:
+  elb = False
+  if elb:
     params = []
     stack_name = 'demo-loadbalancer'
     with open('load_balancer.yml', 'r') as fp:
@@ -103,10 +103,13 @@ if __name__ == '__main__':
     with open('webapp.yml', 'r') as fp:
       template = fp.read()
 
-    params = []
-          # {
-          #   'ParameterKey': '',
-          #   'ParameterValue': ,
-          # }
-        # ]
+    outputs = boto3.client('cloudformation').describe_stacks(StackName='demo-loadbalancer')['Stacks'][0]['Outputs']
+    target_group = [output['OutputValue'] for output in outputs if output['OutputKey'] == 'AppTargetGroupArn'][0]
+    print(target_group)
+    params = [
+          {
+            'ParameterKey': 'TargetGroupArn',
+            'ParameterValue': target_group,
+          }
+        ]
     cfn_handle.upsert_stack(stack_name, template, params)

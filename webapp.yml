@@ -1,9 +1,14 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Parameters:
-  amiId:
-    Description: Region specific image from the Parameter Store
-    Type: 'String'
-    Default: 'ami-0b59bfac6be064b78'
+  amiid:
+    description: region specific image from the parameter store
+    type: 'string'
+    default: 'ami-0b59bfac6be064b78'
+
+  TargetGroupArn:
+    description: ARN of target group to register ASG 
+    type: 'string'
+
 Resources:
   webappLaunchTemplate:
     Type: AWS::EC2::LaunchTemplate
@@ -19,7 +24,8 @@ Resources:
             #!/bin/bash
             sudo su
             yum -y install httpd
-            echo "<p> My Instance! </p>" >> /var/www/html/index.html
+            instace_id=$(curl 169.254.169.254/latest/meta-data/instance-id)
+            echo "<p>Hello from $instance_id </p>" >> /var/www/html/index.html
             sudo systemctl enable httpd
             sudo systemctl start httpd
   webappASG:
@@ -32,8 +38,6 @@ Resources:
         LaunchTemplateId: !Ref webappLaunchTemplate
         Version: !GetAtt webappLaunchTemplate.LatestVersionNumber
       TargetGroupARNs:
-        - arn:aws:elasticloadbalancing:us-east-2:731410788406:targetgroup/demo-Green-1KPQ9AHTDMKWQ/7f282b72dac63b75
+        - !Ref TargetGroupArn
       VPCZoneIdentifier: 
         - subnet-3648f85f
-        # - subnet-066d09f586b03a186
-        # - subnet-0df54d38a628d1795
