@@ -30,8 +30,8 @@ Resources:
     Type: AWS::AutoScaling::AutoScalingGroup
     Properties:
       MinSize: '0'
-      MaxSize: '1'
-      DesiredCapacity: '1'
+      MaxSize: '2'
+      DesiredCapacity: '2'
       LaunchTemplate:
         LaunchTemplateId: !Ref webappLaunchTemplate
         Version: !GetAtt webappLaunchTemplate.LatestVersionNumber
