@@ -31,6 +31,8 @@ Resources:
       LaunchTemplate:
         LaunchTemplateId: !Ref webappLaunchTemplate
         Version: !GetAtt webappLaunchTemplate.LatestVersionNumber
+      TargetGroupARNs:
+        - arn:aws:elasticloadbalancing:us-east-2:731410788406:targetgroup/demo-Green-1KPQ9AHTDMKWQ/7f282b72dac63b75
       VPCZoneIdentifier: 
         - subnet-3648f85f
         # - subnet-066d09f586b03a186
